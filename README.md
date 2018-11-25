@@ -81,7 +81,7 @@ heroku ps:stop bot #stop bot dyno
 * [TelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI) - Telegram service used
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/0x6f736f646f/InstagrampostsTelegramBot/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
