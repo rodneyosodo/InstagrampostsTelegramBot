@@ -51,4 +51,3 @@ target/
 #First initial commits ignoring Data directory
 first.py
 pip-selfcheck.json
-secret.py
