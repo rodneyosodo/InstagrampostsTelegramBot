@@ -1,7 +1,8 @@
 import telebot
 import time
 
-bot_token = '799826544:AAGU6sYuECKTDKz-16_Ywt3UCmBjL4n38Zo'
+from secret import bot_api_token 
+bot_token = bot_api_token
 
 bot = telebot.TeleBot(token=bot_token)
 
