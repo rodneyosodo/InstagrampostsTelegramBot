@@ -1,7 +1,6 @@
 FROM python
 LABEL maintainer="blackd0t@protonmail.com"
 
-#RUN mkdir /code
 WORKDIR /code
 COPY . /code/
 RUN pip install --upgrade pip
