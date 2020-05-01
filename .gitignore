@@ -51,3 +51,9 @@ target/
 #First initial commits ignoring Data directory
 first.py
 pip-selfcheck.json
+
+# Pycharm configs
+.idea/
+
+# Vscode configs
+.vscode/
