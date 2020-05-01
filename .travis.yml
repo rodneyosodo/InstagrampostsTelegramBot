@@ -10,7 +10,7 @@ before_script:
   - flake8 src --ignore F811
 
 script:
-  - nosetests --with-coverage --cover-erase --cover-package=api
+  - nosetests --with-coverage --cover-erase --cover-package=src
 
 after_success:
   - coveralls
