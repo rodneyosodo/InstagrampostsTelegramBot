@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - "3.6.7"
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+before_script:
+  - flake8 src --ignore F811
+
+script:
+  - nosetests --with-coverage --cover-erase --cover-package=api
+
+after_success:
+  - coveralls
