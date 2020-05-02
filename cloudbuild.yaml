@@ -35,10 +35,16 @@ steps:
   - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:$SHORT_SHA'
 
 - name: 'gcr.io/cloud-builders/docker'
-  id: Push lates
+  id: Push latest
   args:
   - 'push'
   - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:latest'
+
+# This step updates our manifest with the latest image tag
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'Set New Image In Manifest'
+  entrypoint: /bin/sh
+  args: ['-c','sed -i "s,LATEST_IMAGE_TAG,gcr.io/$PROJECT_ID/instagrampoststelegrambot:$SHORT_SHA," kubernetes/deployment.yaml']
 
 #step 3
 - name: 'gcr.io/cloud-builders/kubectl'
