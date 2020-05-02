@@ -1,0 +1,48 @@
+steps:
+# This step runs the unit tests on the app
+- name: 'python:3.7-slim'
+  id: Test
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - 'pip install -r src/requirements.txt && python src/test_bot.py'
+
+# This step builds the container image.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build tagged
+  args:
+  - 'build'
+  - '-t'
+  - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:$SHORT_SHA'
+  - 'src'
+
+# This step builds the container image to latest
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build latest
+  args:
+    - 'build'
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:latest'
+    - 'src'
+
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push tagged
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:$SHORT_SHA'
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push lates
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/instagrampoststelegrambot:latest'
+
+#step 3
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'kubernetes/deployment.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=personal-projects'
