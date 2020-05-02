@@ -1,5 +1,6 @@
 # Instagramfinder Telegram Bot 
 [![Build Status](https://travis-ci.com/0x6f736f646f/InstagrampostsTelegramBot.svg?branch=master)](https://travis-ci.com/0x6f736f646f/InstagrampostsTelegramBot)
+[![Coverage Status](https://coveralls.io/repos/github/0x6f736f646f/InstagrampostsTelegramBot/badge.svg?branch=master)](https://coveralls.io/github/0x6f736f646f/InstagrampostsTelegramBot?branch=master)
 
 Help in finding instagram profile url given the username
 
