@@ -1,0 +1,67 @@
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "instagrampoststelegrambot"
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "instagrampoststelegrambot-config-1rw8"
+  namespace: "instagrampoststelegrambot"
+  labels:
+    app: "instagrampoststelegrambot"
+    app_type: "bot"
+data:
+  BOT_API_TOKEN: {{ secrets.BOT_API_TOKEN }}
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "instagrampoststelegrambot"
+  namespace: "instagrampoststelegrambot"
+  labels:
+    app: "instagrampoststelegrambot"
+    app_type: "bot"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "instagrampoststelegrambot"
+      app_type: "bot"
+  template:
+    metadata:
+      labels:
+        app: "instagrampoststelegrambot"
+        app_type: "bot"
+    spec:
+      containers:
+      - name: "instagrampoststelegrambot-1"
+        image: "gcr.io/personal-projects-276010/instagrampoststelegrambot:0.0.1"
+        env:
+        - name: "BOT_API_TOKEN"
+          valueFrom:
+            configMapKeyRef:
+              key: "BOT_API_TOKEN"
+              name: "instagrampoststelegrambot-config-1rw8"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "instagrampoststelegrambot-hpa-dleg"
+  namespace: "instagrampoststelegrambot"
+  labels:
+    app: "instagrampoststelegrambot"
+    app_type: "bot"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "instagrampoststelegrambot"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
