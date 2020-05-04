@@ -1,20 +1,3 @@
----
-apiVersion: "v1"
-kind: "Namespace"
-metadata:
-  name: "instagrampoststelegrambot"
----
-apiVersion: "v1"
-kind: "ConfigMap"
-metadata:
-  name: "instagrampoststelegrambot-config-1rw8"
-  namespace: "instagrampoststelegrambot"
-  labels:
-    app: "instagrampoststelegrambot"
-    app_type: "bot"
-data:
-  BOT_API_TOKEN: "799826544:AAEV0QTQUW1jl1ZmfrpYYDGoccB8gKq1OzE"
----
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
@@ -44,24 +27,3 @@ spec:
             configMapKeyRef:
               key: "BOT_API_TOKEN"
               name: "instagrampoststelegrambot-config-1rw8"
----
-apiVersion: "autoscaling/v2beta1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "instagrampoststelegrambot-hpa-dleg"
-  namespace: "instagrampoststelegrambot"
-  labels:
-    app: "instagrampoststelegrambot"
-    app_type: "bot"
-spec:
-  scaleTargetRef:
-    kind: "Deployment"
-    name: "instagrampoststelegrambot"
-    apiVersion: "apps/v1"
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-  - type: "Resource"
-    resource:
-      name: "cpu"
-      targetAverageUtilization: 80
